@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas logo insti</title>
+</head>
+<body>
+    <canvas id="canvas" height="650px" width="700px"></canvas>
+</body>
+</html>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    }
+</style>
+
+<script>
+    const canvas = document.getElementById("canvas");
+
+    const scaleMulti = 5;
+    const hSeparation = 6 * scaleMulti;
+    const vSeparation = 5 * scaleMulti;
+
+    const itemWidth = 26 * scaleMulti;
+    const smallRectHeight = 67 * scaleMulti;
+    const bigRectHeight = itemWidth + smallRectHeight + vSeparation;
+
+    const ball = { radius: itemWidth / 2};
+
+    const rect1 = { width: itemWidth, height: smallRectHeight, topSeparation: vSeparation * 2 + itemWidth, leftSeparation: hSeparation };
+    const rect2 = { width: itemWidth, height: bigRectHeight, topSeparation: vSeparation, leftSeparation: hSeparation * 2 + itemWidth };
+    const rect3 = { width: itemWidth, height: smallRectHeight, topSeparation: vSeparation, leftSeparation: hSeparation * 3 + itemWidth * 2 };
+
+    const ball1 = { radius: ball.radius, topSeparation: vSeparation + ball.radius, ledtSeparation: hSeparation + ball.radius };
+    const ball2 = { radius: ball.radius, topSeparation: vSeparation * 2 + smallRectHeight + ball.radius, leftSeparation: hSeparation * 3 + itemWidth * 2 + ball.radius };
+
+    var ctx = canvas.getContext("2d");
+    reset(ctx);
+
+    function reset(ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    paintRect(rect1, ctx);
+    paintRect(rect2, ctx);
+    paintRect(rect3, ctx);
+    
+    paintBall(ball1, ctx);
+    paintBall(ball2, ctx);
+    }
+
+    canvas.addEventListener("mousemove", (e) => {
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    paintRect(rect1, ctx);
+    paintRect(rect3, ctx);
+    
+    ctx.strokeStyle = `blue`;
+    ctx.fillStyle = `blue`;
+    ctx.beginPath();
+    ctx.arc(e.clientX, e.clientY, ball.radius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+    
+    paintRect(rect2, ctx);
+    });
+
+    canvas.addEventListener("mouseleave", (e) => {
+    var ctx = canvas.getContext("2d");
+    reset(ctx);
+    });
+
+    function paintRect(rectangle, ctx) {
+    ctx.strokeStyle = `black`
+    ctx.fillStyle = `black`
+    ctx.beginPath();
+    ctx.rect(rectangle.leftSeparation, rectangle.topSeparation, rectangle.width, rectangle.height);
+    ctx.stroke();
+    ctx.fill();
+    };
+
+    function paintBall(ball, ctx) {
+    ctx.strokeStyle = `blue`
+    ctx.fillStyle = `blue`
+    ctx.beginPath();
+    ctx.arc(ball.leftSeparation, ball.topSeparation, ball.radius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+    };
+</script>
+
+<!-- https://codepen.io/julsluks/pen/zYebEoN -->
+
+<!-- Configuración Inicial:
+
+Se selecciona el elemento <canvas> del documento con el ID "canvas".
+Se definen varias constantes y objetos que representan dimensiones y posiciones de elementos en el lienzo.
+scaleMulti se utiliza para escalar todas las dimensiones.
+Se definen objetos para representar un círculo (ball) y tres rectángulos (rect1, rect2, rect3).
+Se crean objetos para dos bolas (ball1, ball2) que se mueven en el lienzo.
+Configuración del Contexto 2D:
+
+Se obtiene el contexto 2D del lienzo, que se utilizará para dibujar gráficos.
+Función de Reinicio (reset):
+
+Limpia el lienzo utilizando ctx.clearRect para borrar cualquier dibujo anterior.
+Llama a la función paintRect para dibujar los tres rectángulos.
+Llama a la función paintBall para dibujar las dos bolas.
+Evento de Movimiento del Ratón:
+
+Cuando se mueve el ratón sobre el lienzo, se ejecuta la función asociada al evento.
+Borra el lienzo y dibuja dos de los rectángulos (rect1 y rect3) utilizando la función paintRect.
+Dibuja un círculo en la posición del ratón (e.clientX y e.clientY) representando una pelota utilizando ctx.arc.
+La pelota se dibuja con el color azul.
+Evento de Salida del Ratón:
+
+Cuando el ratón sale del lienzo, se ejecuta la función asociada al evento.
+Llama a la función reset para restaurar el lienzo al estado inicial.
+Funciones de Dibujo (paintRect y paintBall):
+
+Ambas funciones dibujan formas geométricas en el lienzo.
+paintRect dibuja un rectángulo con bordes y relleno de color negro.
+paintBall dibuja un círculo con bordes y relleno de color azul. -->

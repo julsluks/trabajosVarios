@@ -1,0 +1,65 @@
+<!-- Animación de carta giratoria: Crea una tarjeta que gire al 
+pasar el ratón sobre ella, utilizando transformaciones.
+
+Animación de crecimiento: Haz que un elemento crezca de 
+tamaño gradualmente utilizando transformaciones y transiciones.
+
+Animación de cambio de forma: Haz que un elemento cambie de forma 
+de manera suave utilizando transformaciones. -->
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica animacions 2</title>
+</head>
+<body>
+    <div class="cards-box">
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+    </div>
+</body>
+</html>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .cards-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        width: 17vw;
+        height: 15vh;
+        background-color: #000;
+        margin: 0 1vw;
+        transition: 0.5s ease;
+        
+    }
+
+    .card:hover {
+        transform: rotateY(180deg) scale(1.5);
+        animation: deform 3s;
+    }
+
+    @keyframes deform {
+        0% {
+            border-radius: 0;
+        }
+        
+        100% {
+            border-radius: 50%;
+            background-color: burlywood;
+        }
+    }
+
+</style>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animacio pilota</title>
+</head>
+<body>
+    <div class="ball">
+        <div class="ball__bounce bounce">
+            <div class="bounce__rotate"></div>
+        </div>
+        <div class="ball__shadow"></div>
+    </div>
+    
+    <div class="floor"></div>
+</body>
+</html>
+
+<style>
+    .ball {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 97%;
+    width: 25vh;
+    animation: horizontalMove 3.654321s linear infinite alternate;
+    }
+    .ball__bounce {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 25vh;
+    height:25vh;
+    border-radius: 50%;
+    animation: bounce 1s alternate infinite ease-in;
+    }
+    .bounce__rotate{
+    background: radial-gradient(circle at 65% 15%, white 1px, orange 6%, pink 60%, 	 purple 100%);  
+    border-radius: 50%;
+    width: 25vh;
+    height: 25vh;
+    animation: rotationBall 3.654321s linear alternate infinite;
+    }
+    .ball__shadow {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    margin-top: 10%;
+    width: 20vh;
+    height: 7vh;
+    background-color: rgba(0,0,0, 0.4);
+    border-radius: 50%;
+    animation: shadow 1s linear infinite alternate;
+    }
+    .floor {
+    width: 100vw;
+    height: 20%;
+    background-color: grey;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -2;
+    }
+
+    @keyframes bounce {
+        90%{
+            height: 100px;
+        }
+    
+        100%{
+            transform: translateY(200px);
+            height: 80px;
+        }
+    }
+    @keyframes shadow {  
+        from{
+            transform: scale(50%);
+            filter: blur(5px);
+        }
+        to{
+            transform: scale(100%);
+        }
+    }
+    @keyframes horizontalMove {
+        from{
+            left: 0;
+        }
+        to{
+            left: 95%;
+        }
+    }
+    @keyframes rotationBall {
+        from {
+            rotate:-320deg;
+        } to {
+            rotate: 320deg;
+        }
+    }
+</style>
+
+<!-- https://codepen.io/julsluks/pen/JjxrQXd -->

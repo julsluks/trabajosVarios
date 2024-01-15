@@ -1,0 +1,84 @@
+<!-- Animación de carga: Crea una animación de carga para un
+elemento de tu página web utilizando transformaciones y opacidades. -->
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica de animaciones</title>
+</head>
+<body>
+    <div class="barra-box">
+        <div class="barra-border">
+            <div class="barra-movement"></div>
+        </div>
+        
+        <div class="barra-shadow"></div>
+    </div>
+</body>
+</html>
+
+<style>
+    .barra-box{
+        /* centrar */
+        position: absolute;
+        margin: auto;
+        top: 45%;
+        left: 35%;
+        /* tamaño */
+        width: 30vw;
+        height: 5vh;
+    }
+
+    .barra-border{
+        height: 2.5vh;
+        border: 1px solid black;
+        border-radius: 50px;
+    }
+
+    .barra-movement{
+        height: 2.5vh;
+        animation: omplirBarra 3s infinite;
+    }
+
+    .barra-shadow{
+        margin-top: 0.5vh;
+        height: 0.5vh;
+        opacity: 0.5;
+        filter: blur(3px);
+        animation: omplirBarra 3s infinite;
+    }
+
+    @keyframes omplirBarra {
+        0%{
+            width: 0px;
+            display: none;
+            background-color: blue;
+        }
+        25%{
+            width: 7.5vw;
+            display: block;
+            border-radius: 50px;
+            background-color: blueviolet;
+        }
+        50%{
+            width: 15vw;
+            display: block;
+            border-radius: 50px;
+            background-color: green;
+        }
+        75%{
+            width: 22.5vw;
+            display: block;
+            border-radius: 50px;
+            background-color: yellow;
+        }
+        100% {
+            width: 30vw;
+            display: block;
+            border-radius: 50px;
+            background-color: red;
+        }
+    }
+</style>
