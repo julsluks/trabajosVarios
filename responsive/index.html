@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive game</title>
+</head>
+<body>
+    <div class="containerBox">
+        <div class="oneBox">
+            <div class="paintBox"></div>
+        </div>
+        <div class="othersBoxes">
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+            <div class="paintBox"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .containerBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    .oneBox, .othersBoxes {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .othersBoxes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 0;
+        column-gap: 0;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .paintBox, .aloneBox {
+        border: 1px solid black;
+    }
+
+    .paintBox {
+        width: 33.33vw;
+        height: 20vh;
+    }
+
+    @media screen and (orientation: landscape) {
+        .othersBoxes {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .paintBox {
+            width: 25vw;
+            height: 25vh;
+        }
+    }
+
+    @media screen and (min-width: 600px) {
+        .othersBoxes {
+            grid-template-columns: repeat(6, 1fr);
+        }
+        .paintBox {
+            width: 16.66vw;
+            height: 33.33vh;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .othersBoxes {
+            grid-template-columns: repeat(12, 1fr);
+        }
+        .paintBox {
+            width: 8.33vw;
+            height: 50vh;
+        }   
+    }
+</style>
