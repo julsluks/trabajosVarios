@@ -3,13 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Canvas exam</title>
 </head>
 <body>
-    <canvas id="canvas" height="400px" width="700"></canvas>
+    <canvas id="canvas" height="500px" width="500px"></canvas>
 </body>
 </html>
 
 <script>
-    
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    let nom = "Julie";
+    let colorLletra = "black";
+    let colorFons = "blue";
+
+    let width = canvas.width;
+    let height = canvas.height;
+    let x = (width)/ 2;
+    let y = (height) / 2;
+
+    reset(ctx);
+
+    function reset(ctx) {
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.fillStyle = colorFons;
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = colorLletra;
+        ctx.font = "70px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(nom, x, y);
+    }
+
+    canvas.addEventListener('mousemove', function(e) {
+        ctx.beginPath();
+        ctx.arc(e.offsetX, e.offsetY, 10, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+    });
+
+    canvas.addEventListener("mouseleave", (e) => {
+        var ctx = canvas.getContext("2d");
+        reset(ctx);
+    });
+
 </script>
+
+<!-- Utilitzant canvas heu de fer que en un rectangle blau de 500px al mig hi escrigui el vostre nom en negre. 
+Aleshores quan el botó del ratóli està premut vagi pintant de color negre, i en sortir del quadrat pinti 
+tot el quadrat de color blau (i el nom en negre) altra vegada (com a l'inici). -->
+
