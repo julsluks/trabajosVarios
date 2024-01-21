@@ -39,7 +39,15 @@
     font-weight: 100;
 }
 
+.page__form{
+    /* mida */
+    height: 30%;
+    /* colors back*/
+    background-color: rgba(27, 12, 121, 0.7);
+}
+
 .form__subtitle{
+    
     /* mida */
     padding: 5%;
     margin: 10%;
@@ -54,15 +62,25 @@
     letter-spacing: 0.2cap;
 }
 
-.form__buttons {
-    width: 95%;
-    height: ;
+.form__buttons{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5%;
+    height: 70%;
 }
 
 .btns__green{
     /* mida */
     width: 30%;
-    height: 40%;
+    height: 10vh;
     /* colors back*/
     background-color: green;
+}
+
+.btns__red{
+    /* mida */
+    width: 30%;
+    height: 10vh;
+    /* colors back*/
+    background-color: red;
 }
