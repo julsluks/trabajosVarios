@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=800, initial-scale=1.0">
+        <title>p2p video Chat and text chat</title>
+        <link rel="stylesheet" href="index.css">
+
+    </head>
+
+    <body>
+        <div class="boxcontainer">
+            <div class="leftbox">
+                <label for="">Your ID</label><br>
+                <textarea disabled id="yourID" cols="30" rows="10"></textarea>
+            </div>
+            <div class="centerbox"><label for="">Remote ID</label><br>
+                <textarea name="" cols="30" rows="10" id="remoteID"></textarea>
+            </div>
+            <div class="rightbox">
+                <div id="initiator_div">
+                    <button id="getInitiatorID">1- Create my Peer ID</button><br>
+                    <button id="connect">3- Signal My Peer</button><br>
+
+                </div>
+                <div id="accepting_div">
+                    <button id="signalPeer">2- Signal My Peer</button><br>
+                </div>
+
+                <textarea id="genericSignalText"></textarea>
+                <button id="genericSignal">Generic Signal</button><br>
+
+                <input type="checkbox" id="initiator" checked>Initiator</input><br>
+
+            </div>
+            <div>
+                <label for="">Enter messages</label><br>
+                <textarea name="" id="message" cols="30" rows="10"></textarea><br>
+                <button id="send">SEND</button>
+                <button id="sendVideoStream">PLAY STREAM</button>
+
+            </div>
+
+        </div>
+        <hr>
+        <div>
+            <span id="messages"></span>
+        </div>
+        <hr>
+        <button id="log">LOG DEVICES</button>
+        <button id="removeLog">REMOVE LOG </button>
+        <button id="controlCamera">START MY CAMERA</button>
+
+
+        <select name="webcam" id="webcam">
+
+        </select>
+        <hr>
+
+
+
+
+
+
+        <div class="boxcontainer">
+            <div class="container">
+                <video alt="my video stream" id="myVideoStream" width="600px"></video>
+
+                <div class="overlay">
+                    <p>My video Stream</p>
+                </div>
+            </div>
+            <div class="container">
+                <video alt="remote video stream" id="remoteVideoStream" width="600px"></video>
+
+                <div class="overlay">
+                    <p>Remote video Stream</p>
+                </div>
+            </div>
+            <script src="bundle.js"></script>
+    </body>
+    </div>
+
+</html>

@@ -1,0 +1,251 @@
+var getusermedia = require("getusermedia");
+
+var Peer = require("simple-peer");
+
+var devices = undefined;
+var webcamStarted = false;
+var video = document.getElementById("myVideoStream");
+var myStream = undefined;
+var remoteStream = undefined;
+var peer = undefined;
+/**
+ * Get all the devices and populate the SELECT Html TAG called "webcam"
+ * So we can recover the id of any devive and start the webcam
+ *
+ * We put this code inside of a promise, otherwise if we don't have permissions from the user yet
+ * we couldn't recive the información and we would need to reload.
+ * If we place the code in the "then" part of the promise, the code is gonna run just in the moment
+ * when we got answer from the user.
+ */
+var mediaDevicesPromise = navigator.mediaDevices.getUserMedia({
+	audio: true,
+	video: true,
+});
+
+mediaDevicesPromise
+	.then(function () {
+		var enumeratorPromise = navigator.mediaDevices
+			.enumerateDevices()
+			.then(function (_devices) {
+				devices = _devices;
+				var select = document.getElementById("webcam");
+				_devices.forEach(function (device) {
+					console.log(
+						device.kind + ":" + device.label + "id =" + device.deviceId
+					);
+					if (device.kind == "videoinput") {
+						var option = document.createElement("option");
+						option.innerHTML = device.label;
+						option.value = device.deviceId;
+
+						if (constraintsObject.deviceId == undefined) {
+							//Checking the right one
+							constraintsObject.deviceId = device.deviceId;
+						}
+
+						select.appendChild(option);
+					}
+				});
+			})
+			.catch(function (err) {
+				console.log(err.name + ":" + err.message);
+			});
+	})
+	.catch(function () {
+		//Handle errors
+		console.log("Error with navigator.mediaDevices Promise");
+	});
+console.log("works??");
+/**
+ * Library to wrap navigator.getUserMedia and handle errors for all the diferent kind of browsers.
+ */
+function startCamera() {
+	getusermedia(
+		{
+			//video: true,
+			video: constraintsObject,
+			audio: false,
+		},
+		function (err, stream) {
+			if (err) {
+				console.log(err);
+			} else {
+				//We can create the object dinamycly if we need to
+				//video = document.createElement("video");
+				//document.body.appendChild(video);
+				myStream = stream;
+
+				video.srcObject = stream;
+				video.play();
+			}
+		}
+	);
+}
+
+/**
+ *
+ * Simple Peer function to call another peer
+ *
+ */
+function callPeer(id) {
+	console.log("Ready to make a call");
+	peer = new Peer({
+		//initiator: true, //qui inicia la trucada
+		initiator: true,
+		trickle: false,
+		stream: myStream,
+	});
+
+	//Handshake per iniciar la comunicació sense server
+	peer.on("signal", (data) => {
+		//enviar via socket.io les dades d'inici de trucada.
+		/**
+		 * infomració que tindria que enviar via socket.io per localitzar i pasar la ifnormació a l'altre
+		 * peer.
+		 * id <-- id de l'usuari que vull trucar.
+		 * data <-- les dades qeu envio
+		 * el meu id
+		 */
+		document.getElementById("yourID").value = JSON.stringify(data);
+		console.log("MY ID TO MAKE A CALL:");
+		console.log(data);
+	});
+	/**
+	 *
+	 */
+	peer.on("streem", (stream) => {
+		//Stream de dades que rebo de l'altre costat
+		//document.getElementById("remoteVideo").srcObject = stream;
+	});
+	//?¿?¿    peer.signal(signal);
+	peer.on("data", (data) => {
+		logMessage(data);
+	});
+	document.getElementById("connect").addEventListener("click", () => {
+		peer.signal(document.getElementById("remoteID").value);
+	});
+}
+/**
+ * Simple peer function to recive a call
+ *
+ */
+function acceptCall() {
+	console.log("Ready to accept call");
+	peer = new Peer({
+		initiator: false,
+		trickle: false,
+		stream: myStream,
+	});
+
+	//Need to signal the initiator to be abble to get our ID
+	peer.signal(document.getElementById("remoteID").value);
+
+	peer.on("signal", (data) => {
+		//es crida cada cop que es crea un nou objecte Peer
+		console.log("MY ID TO ACCEPT CALL:");
+		console.log(data);
+		document.getElementById("yourID").value = JSON.stringify(data);
+	});
+	peer.on("stream", (stream) => {
+		//document.geteleentById("otherVideo").srcObject = stream;
+	});
+	//?¿?    peer.signal(callerSignal);
+	peer.on("data", (data) => {
+		logMessage(data);
+	});
+}
+
+/**
+ * EventListener and actions for the web
+ */
+
+document.getElementById("log").addEventListener("click", () => {
+	console.log(devices);
+	logError("<ul>");
+	devices.forEach((device) => {
+		addLogError(
+			"<li><b>" + device.label + ":</b>[" + device.deviceId + "]</li><br>"
+		);
+	});
+	addLogError("</ul>");
+});
+
+document.getElementById("removeLog").addEventListener("click", () => {
+	emptyLogError();
+});
+
+document.getElementById("signalSimplePeer").addEventListener("click", () => {
+	var initiator = document.getElementById("initiator").checked;
+	console.log("initiator: " + initiator);
+	if (myStream) {
+		if (initiator) {
+			callPeer("id to Call");
+		} else {
+			acceptCall();
+		}
+	} else {
+		logError("Stream is not define yet. Start your camera first");
+	}
+});
+
+document.getElementById("controlCamera").addEventListener("click", () => {
+	controlCameraButton = document.getElementById("controlCamera");
+	if (webcamStarted) {
+		console.log("turining OFF web cam");
+		controlCameraButton.innerHTML = "START MY CAMERA";
+		controlCameraButton.style.backgroundColor = "lightcoral";
+
+		if (video) {
+			video.pause();
+			video.currentTime = 0;
+			video.srcObject = null;
+		}
+	} else {
+		console.log("turning ON webcam");
+		controlCameraButton.innerHTML = "STOP MY CAMERA";
+		controlCameraButton.style.backgroundColor = "lightgreen";
+		startCamera();
+	}
+	webcamStarted = !webcamStarted;
+});
+
+document.getElementById("webcam").addEventListener("change", (event) => {
+	constraintsObject.deviceId = event.target.value;
+	if (webcamStarted) {
+		console.log("Reiniciando camera");
+		document.getElementById("controlCamera").click(); //Switching off
+		document.getElementById("controlCamera").click(); //Switching on
+	}
+});
+
+document.getElementById("send").addEventListener("click", (event) => {
+	var message = document.getElementById("message").value;
+	console.log("message => " + message);
+	peer.send(message);
+});
+/**
+ * TEST constraints example
+ */
+
+var constraintsObject = {
+	deviceId: {
+		exact: undefined,
+	},
+};
+
+/**
+ *
+ * UTILS
+ */
+function logError(txt) {
+	document.getElementById("messages").innerHTML = txt;
+}
+function addLogError(txt) {
+	document.getElementById("messages").innerHTML += txt;
+}
+function emptyLogError() {
+	logError("");
+}
+function logMessage(txt) {
+	logError(txt);
+}
