@@ -1,0 +1,8 @@
+services:
+  web:
+    #Servidor web que volem protegit
+    image: php:8.2-apache
+    ports:
+      - "8000:80"
+    volumes:
+      - ./web:/var/www/html
