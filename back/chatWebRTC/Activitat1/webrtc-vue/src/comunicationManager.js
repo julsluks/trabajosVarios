@@ -25,7 +25,6 @@ export function comencarConnexio() {
             console.log('SIGNAL', JSON.stringify(data));
         }
 
-
     });
     peer.on("data", (data) => {
         let str = JSON.parse(new TextDecoder("utf-8").decode(data))

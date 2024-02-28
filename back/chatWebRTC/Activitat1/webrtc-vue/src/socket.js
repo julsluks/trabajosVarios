@@ -11,7 +11,6 @@ setTimeout(() => {
   store = useAppStore();
 }, 500);
 
-
 socket.on("nou usuari", (llistaUsers) => { store.setUsers(llistaUsers); console.log("arribat"); });
 
 socket.on("comencar", () => {

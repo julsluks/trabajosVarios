@@ -1,11 +1,9 @@
 import express from 'express';
-
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 
 const app = express()
-//A pro 3590, a pro 3589
 const port = 3589
 app.use(cors());
 const server = createServer(app);
@@ -23,8 +21,6 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-    
-    
     console.log('a user connected');
     console.log(socket.id);
 
@@ -34,17 +30,9 @@ io.on('connection', (socket) => {
         } else {
             socket.emit('conectar', iniciador)
         }
-        
         socket.name = name;
         console.log('hola,', name);
-
-        console.log("llista AVANS de ficar-lo", llistaUsers);
-
         llistaUsers.push(socket);
-
-        console.log("llista DESPRÉS de ficar-lo", llistaUsers);
-
-
         io.emit('nou usuari', llistaUsers.map((user) => user.name));
     });
 
@@ -61,7 +49,6 @@ io.on('connection', (socket) => {
         console.log('user disconnected');
         llistaUsers.splice(llistaUsers.indexOf(socket), 1);
         socket.disconnect();
-        console.log(llistaUsers);
     });
 });
 
