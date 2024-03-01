@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper</title>
-    <style>
-        /* Add your CSS styles here */
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script type="module" src="./dist/main.js"></script>
 </head>
 <body>
-    <h1>Minesweeper</h1>
+    <h1 id="title">Minesweeper</h1>
     
     <div id="game-config">
         <input type="number" id="rows-input" placeholder="Filas" min="0">
         <input type="number" id="columns-input" placeholder="Columnas" min="0">
+        <br>
+        <button id="start-button">Comenzar juego</button>
     </div>
 
-    <button id="start-button">Comenzar juego</button>
-
-    <div id="game-board">
-        
-    </div>
+    <div id="game-board"></div>
 </body>
 </html>

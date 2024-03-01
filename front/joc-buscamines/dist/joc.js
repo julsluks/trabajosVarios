@@ -4,20 +4,22 @@ class Joc {
         this.tauler = new Tauler(filas, columnes);
     }
     dibuixarTauler() {
-        var _a;
+        var _a, _b;
         let caselles = this.tauler.inicialitzarCaselles();
         console.log(caselles);
-        for (let index = 0; index < caselles.length; index++) {
-            caselles[index].forEach(casella => {
-                var _a;
+        for (let f = 0; f < caselles.length; f++) {
+            let filaCasella = caselles[f];
+            (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(document.createElement('br'));
+            for (let c = 0; c < filaCasella.length; c++) {
+                let columnaCasella = filaCasella[c];
                 const casellaHTML = document.createElement('div');
                 casellaHTML.classList.add('casella');
-                if (casella.esMina == true) {
+                casellaHTML.textContent = columnaCasella.esMina ? 'X' : 'O';
+                if (columnaCasella.esMina == true) {
                     casellaHTML.classList.add('mina');
                 }
-                (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(casellaHTML);
-            });
-            (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(document.createElement('br')); // Salto de línea
+                (_b = document.getElementById('game-board')) === null || _b === void 0 ? void 0 : _b.appendChild(casellaHTML);
+            }
         }
     }
     revelarCasella(fila, columna) {

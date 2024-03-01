@@ -12,16 +12,19 @@ class Joc {
         let caselles = this.tauler.inicialitzarCaselles();
         console.log(caselles);
 
-        for (let index = 0; index < caselles.length; index++) {
-            caselles[index].forEach(casella => {
+        for (let f = 0; f < caselles.length; f++) {
+            let filaCasella = caselles[f];
+            document.getElementById('game-board')?.appendChild(document.createElement('br'));
+            for (let c = 0; c < filaCasella.length; c++) {
+                let columnaCasella = filaCasella[c];
                 const casellaHTML = document.createElement('div');
                 casellaHTML.classList.add('casella');
-                if (casella.esMina == true) {
+                casellaHTML.textContent = columnaCasella.esMina ? 'X' : 'O';
+                if (columnaCasella.esMina == true) {
                     casellaHTML.classList.add('mina');
                 }
-                document.getElementById('game-board')?.appendChild(casellaHTML);
-            });
-            document.getElementById('game-board')?.appendChild(document.createElement('br')); // Salto de línea
+                document.getElementById('game-board')?.appendChild(casellaHTML);                
+            }
         }
     }
 
