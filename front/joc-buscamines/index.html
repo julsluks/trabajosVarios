@@ -7,16 +7,20 @@
     <style>
         /* Add your CSS styles here */
     </style>
+    <script type="module" src="./dist/main.js"></script>
 </head>
 <body>
     <h1>Minesweeper</h1>
     
-    <div id="game-board">
-        <!-- Add your game board here -->
+    <div id="game-config">
+        <input type="number" id="rows-input" placeholder="Filas" min="0">
+        <input type="number" id="columns-input" placeholder="Columnas" min="0">
     </div>
 
-    <script>
-        // Add your JavaScript code here
-    </script>
+    <button id="start-button">Comenzar juego</button>
+
+    <div id="game-board">
+        
+    </div>
 </body>
 </html>

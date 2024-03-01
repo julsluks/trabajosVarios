@@ -1,12 +1,12 @@
-"use strict";
+import Casella from './casella.js';
 class Tauler {
     constructor(filas, columnes) {
+        this.caselles = []; //Una matriu de caselles que formen el tauler.
+        this.caselles = [];
         this.filas = filas;
         this.columnes = columnes;
     }
     inicialitzarCaselles() {
-        // Lógica para inicializar las celdas del tablero, incluyendo la distribución aleatoria de minas.
-        this.caselles = [];
         // Crear las casillas y asignarles una mina aleatoriamente
         for (let i = 0; i < this.filas; i++) {
             this.caselles[i] = [];
@@ -15,5 +15,7 @@ class Tauler {
                 this.caselles[i][j] = new Casella(mina);
             }
         }
+        return this.caselles;
     }
 }
+export default Tauler;

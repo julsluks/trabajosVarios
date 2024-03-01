@@ -11,3 +11,5 @@ class Casella {
     }
 
 }
+
+export default Casella;

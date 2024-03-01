@@ -1,3 +1,5 @@
+import Tauler from './tauler.js';
+
 class Joc {
 
     public tauler: Tauler; //El tauler de joc.
@@ -7,7 +9,20 @@ class Joc {
     }
 
     dibuixarTauler() {
-        // Lógica para dibujar el tablero en pantalla
+        let caselles = this.tauler.inicialitzarCaselles();
+        console.log(caselles);
+
+        for (let index = 0; index < caselles.length; index++) {
+            caselles[index].forEach(casella => {
+                const casellaHTML = document.createElement('div');
+                casellaHTML.classList.add('casella');
+                if (casella.esMina == true) {
+                    casellaHTML.classList.add('mina');
+                }
+                document.getElementById('game-board')?.appendChild(casellaHTML);
+            });
+            document.getElementById('game-board')?.appendChild(document.createElement('br')); // Salto de línea
+        }
     }
 
     revelarCasella(fila: number, columna: number) {
@@ -19,3 +34,5 @@ class Joc {
     }
 
 }
+
+export default Joc;

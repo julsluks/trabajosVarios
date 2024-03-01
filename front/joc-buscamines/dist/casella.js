@@ -1,4 +1,3 @@
-"use strict";
 class Casella {
     constructor(mina) {
         this.esMina = mina;
@@ -6,3 +5,4 @@ class Casella {
         this.marcada = false;
     }
 }
+export default Casella;

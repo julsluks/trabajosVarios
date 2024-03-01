@@ -1,3 +1,5 @@
+import Casella from './casella.js';
+
 class Tauler {
 
     public caselles: Casella[][] = []; //Una matriu de caselles que formen el tauler.
@@ -19,5 +21,9 @@ class Tauler {
                 this.caselles[i][j] = new Casella(mina);
             }
         }
+
+        return this.caselles;
     }
 }
+
+export default Tauler;
