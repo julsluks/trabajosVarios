@@ -1,5 +1,7 @@
 import Joc from './joc.js';
 
+var game: Joc;
+
 document.getElementById("start-button")?.addEventListener("click", function() {
     let rows: number;
     let columns: number;
@@ -30,13 +32,17 @@ document.getElementById("turn-back-button")?.addEventListener("click", function(
 });
 
 //lister a game-board click
-
+document.getElementById("game-board")?.addEventListener("click", function(event) {
+    let target = event.target as HTMLElement;
+    if (target.classList.contains("casella")) {
+        console.log("Casella clicada");
+        game.revelarCasella(0, 0);
+    }
+});
 
 function startGame(rows: number, columns: number) {
-    let game = new Joc(rows, columns);
-    // let caselles = game.tauler.inicialitzarCaselles();
+    game = new Joc(rows, columns);
     game.dibuixarTauler();
-    // console.log(caselles);
 }
 
 function restartGame() {

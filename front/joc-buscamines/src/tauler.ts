@@ -21,7 +21,6 @@ class Tauler {
                 this.caselles[i][j] = new Casella(mina);
             }
         }
-
         return this.caselles;
     }
 }

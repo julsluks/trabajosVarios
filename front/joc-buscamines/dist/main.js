@@ -1,5 +1,6 @@
-var _a, _b;
+var _a, _b, _c;
 import Joc from './joc.js';
+var game;
 (_a = document.getElementById("start-button")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
     var _a, _b, _c;
     let rows;
@@ -27,11 +28,16 @@ import Joc from './joc.js';
     restartGame();
 });
 //lister a game-board click
+(_c = document.getElementById("game-board")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", function (event) {
+    let target = event.target;
+    if (target.classList.contains("casella")) {
+        console.log("Casella clicada");
+        game.revelarCasella(0, 0);
+    }
+});
 function startGame(rows, columns) {
-    let game = new Joc(rows, columns);
-    // let caselles = game.tauler.inicialitzarCaselles();
+    game = new Joc(rows, columns);
     game.dibuixarTauler();
-    // console.log(caselles);
 }
 function restartGame() {
     let gameBoard = document.getElementById("game-board");

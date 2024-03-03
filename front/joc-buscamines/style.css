@@ -50,6 +50,13 @@ body {
     background-color: #3b8a3e;
 }
 
+#turn-back-button, #game-over, #game-won {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #game-board {
     margin: 20px auto; /* Esto centrará el elemento horizontalmente */
     max-width: 400px; /* O cualquier otro ancho deseado */
@@ -60,6 +67,7 @@ body {
     display: table;
 }
 
+/* Estilos de las casillas */
 .casella {
     background-image: url('./assets/tapado.png');
     background-size: cover;
@@ -68,6 +76,7 @@ body {
     height: 30px;
 }
 
+/* clase para combinar */
 .oculta {
     visibility: hidden;
     width: 0;

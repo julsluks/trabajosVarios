@@ -10,13 +10,18 @@ class Joc {
         for (let f = 0; f < caselles.length; f++) {
             let filaCasella = caselles[f];
             for (let c = 0; c < filaCasella.length; c++) {
-                let columnaCasella = filaCasella[c];
+                // Crear un div por cada casilla
                 const casellaHTML = document.createElement('div');
+                // Casilla
+                let casella = filaCasella[c];
+                // Classes a casilla
                 casellaHTML.classList.add('casella');
-                // casellaHTML.textContent = columnaCasella.esMina ? 'X' : 'O';
-                if (columnaCasella.esMina == true) {
+                if (casella.esMina == true) {
                     casellaHTML.classList.add('mina');
                 }
+                // ID a casilla
+                casellaHTML.id = `casella-${f}-${c}`;
+                // Añadir casilla al tablero
                 (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(casellaHTML);
             }
             (_b = document.getElementById('game-board')) === null || _b === void 0 ? void 0 : _b.appendChild(document.createElement('br'));
