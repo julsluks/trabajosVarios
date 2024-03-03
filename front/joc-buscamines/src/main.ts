@@ -21,9 +21,24 @@ document.getElementById("start-button")?.addEventListener("click", function() {
     }
 });
 
+document.getElementById("turn-back-button")?.addEventListener("click", function() {
+    document.getElementById("game-board")?.classList.add("oculta");
+    document.getElementById("turn-back-button")?.classList.add("oculta");
+    document.getElementById("game-config")?.classList.remove("oculta");
+
+    restartGame();
+});
+
 function startGame(rows: number, columns: number) {
     let game = new Joc(rows, columns);
     // let caselles = game.tauler.inicialitzarCaselles();
     game.dibuixarTauler();
     // console.log(caselles);
+}
+
+function restartGame() {
+    let gameBoard = document.getElementById("game-board");
+    if (gameBoard) {
+        gameBoard.innerHTML = "";
+    }
 }
