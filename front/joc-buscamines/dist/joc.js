@@ -9,17 +9,17 @@ class Joc {
         console.log(caselles);
         for (let f = 0; f < caselles.length; f++) {
             let filaCasella = caselles[f];
-            (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(document.createElement('br'));
             for (let c = 0; c < filaCasella.length; c++) {
                 let columnaCasella = filaCasella[c];
                 const casellaHTML = document.createElement('div');
                 casellaHTML.classList.add('casella');
-                casellaHTML.textContent = columnaCasella.esMina ? 'X' : 'O';
+                // casellaHTML.textContent = columnaCasella.esMina ? 'X' : 'O';
                 if (columnaCasella.esMina == true) {
                     casellaHTML.classList.add('mina');
                 }
-                (_b = document.getElementById('game-board')) === null || _b === void 0 ? void 0 : _b.appendChild(casellaHTML);
+                (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(casellaHTML);
             }
+            (_b = document.getElementById('game-board')) === null || _b === void 0 ? void 0 : _b.appendChild(document.createElement('br'));
         }
     }
     revelarCasella(fila, columna) {
