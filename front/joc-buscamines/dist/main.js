@@ -26,6 +26,7 @@ import Joc from './joc.js';
     (_c = document.getElementById("game-config")) === null || _c === void 0 ? void 0 : _c.classList.remove("oculta");
     restartGame();
 });
+//lister a game-board click
 function startGame(rows, columns) {
     let game = new Joc(rows, columns);
     // let caselles = game.tauler.inicialitzarCaselles();

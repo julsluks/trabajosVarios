@@ -29,6 +29,9 @@ document.getElementById("turn-back-button")?.addEventListener("click", function(
     restartGame();
 });
 
+//lister a game-board click
+
+
 function startGame(rows: number, columns: number) {
     let game = new Joc(rows, columns);
     // let caselles = game.tauler.inicialitzarCaselles();
