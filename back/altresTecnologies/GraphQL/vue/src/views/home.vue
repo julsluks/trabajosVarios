@@ -1,0 +1,110 @@
+<template>
+    <div class="container">
+        <div class="left-panel">
+            <h1>Listado de Películas</h1>
+            <ul class="movie-list">
+                <li v-for="movie in movies" :key="movie.id" class="movie-item">
+                    {{ movie.title }} - <b>{{ movie.director.name }}</b> ({{ movie.year }})
+                </li>
+            </ul>
+        </div>
+        <div class="right-panel">
+            <h1>Añadir Película</h1>
+            <form @submit.prevent="addMovie">
+                <label for="title">Título:</label>
+                <input type="text" id="title" v-model="newMovie.title" required>
+                <label for="year">Año:</label>
+                <input type="number" id="year" v-model="newMovie.year" required>
+                <label for="director">Director:</label>
+                <select id="director" v-model="newMovie.director" required>
+                    <option disabled value="">Seleccione director</option>
+                    <option v-for="director in directors" :value="director.id" :key="director.id">
+                        {{ director.name }}
+                    </option>
+                </select>
+                <button>Añadir</button>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+import { gql } from 'graphql-tag'
+
+export default {
+    data() {
+        return {
+            movies: [],
+            newMovie: {
+                title: '',
+                year: null,
+                director: ''
+            },
+            directors: []
+        }
+    },
+    apollo: {
+        movies: {
+
+        },
+        directors: {
+
+        }
+
+    },
+    methods: {
+        async addMovie() {
+
+        },
+    },
+}
+</script>
+
+<style scoped>
+.container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.left-panel,
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    width: 50%;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 0.5rem;
+}
+
+input,
+select {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
