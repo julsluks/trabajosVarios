@@ -25,7 +25,7 @@ class Joc {
                     casellaHTML.classList.add('mina');
                 }
                 // ID a casilla
-                casellaHTML.id = `casella-${f}-${c}`;
+                casellaHTML.id = `${f}-${c}`;
                 // Añadir casilla al tablero
                 document.getElementById('game-board')?.appendChild(casellaHTML);                
             }
@@ -35,6 +35,7 @@ class Joc {
 
     revelarCasella(fila: number, columna: number) {
         // Lógica para revelar una casilla
+        
     }
 
     marcarCasella(fila: number, columna: number) {

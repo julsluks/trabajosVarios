@@ -20,7 +20,7 @@ class Joc {
                     casellaHTML.classList.add('mina');
                 }
                 // ID a casilla
-                casellaHTML.id = `casella-${f}-${c}`;
+                casellaHTML.id = `${f}-${c}`;
                 // Añadir casilla al tablero
                 (_a = document.getElementById('game-board')) === null || _a === void 0 ? void 0 : _a.appendChild(casellaHTML);
             }
