@@ -1,0 +1,31 @@
+
+ENUNCIADO
+	Crear en LARAVEL métodos de registro/login/get-user o logout usando JWT y comprobarlos con POSTMAN o THUNDERCLIENT. 
+	Realizarlo con vue/nuxt ->(opcional) 
+
+
+REQUERIMIENTOS + CONFIGURACION DE LARAVEL
+
+
+CMD	PAQUETE DE LARAVEL: 		composer require tymon/jwt-auth:dev-develop --prefer-source
+
+
+CONF	App/config.php:	    		(Providers) Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
+
+CONF	App/config.php:	    		(Facades) 'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class, 'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+
+
+CMD	Publicar configuracion: 	php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+
+CMD	Establecer firma en .env:	php artisan jwt:secret 
+	
+
+CMD	Crear middleware de jwt: 	php artisan make:middleware JwtMiddleware
+
+
+CONF	Kernel.php: 			protected $routeMiddleware = [ 'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class, ];
+
+
+CONF	Routes/api.php: 		Route::group(['middleware' => ['jwt.verify']], function() { /AÑADE AQUÍ LAS RUTAS QUE QUIERAS PROTEGER CON JWT/ });
