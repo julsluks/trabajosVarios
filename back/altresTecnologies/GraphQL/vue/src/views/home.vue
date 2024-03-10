@@ -4,9 +4,7 @@
             <h1>Listado de Películas</h1>
             <ul class="movie-list">
                 <li v-for="movie in movies" :key="movie.id" class="movie-item">
-                    {{ movie.title }} - <b>{{ movie.director.name }}</b> ({{
-                    movie.year
-                }})
+                    {{ movie.title }} - <b>{{ movie.director.name }}</b> ({{ movie.year }})
                 </li>
             </ul>
         </div>
@@ -14,9 +12,9 @@
             <h1>Añadir Película</h1>
             <form @submit.prevent="addMovie">
                 <label for="title">Título:</label>
-                <input type="text" id="title" v-model="newMovie.title" required />
+                <input type="text" id="title" v-model="newMovie.title" required>
                 <label for="year">Año:</label>
-                <input type="number" id="year" v-model="newMovie.year" required />
+                <input type="number" id="year" v-model="newMovie.year" required>
                 <label for="director">Director:</label>
                 <select id="director" v-model="newMovie.director" required>
                     <option disabled value="">Seleccione director</option>
@@ -31,29 +29,83 @@
 </template>
 
 <script>
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
 export default {
     data() {
         return {
             movies: [],
             newMovie: {
-                title: "",
+                title: '',
                 year: null,
-                director: "",
+                director: ''
             },
-            directors: [],
-        };
+            directors: []
+        }
     },
     apollo: {
-        movies: {},
-        directors: {},
+        movies: {
+            query: gql`
+                query {
+                    movies {
+                        id
+                        title
+                        year
+                        director {
+                            id
+                            name
+                        }
+                    }
+                }
+            `
+        },
+        directors: {
+            query: gql`
+                query {
+                    directors {
+                        id
+                        name
+                    }
+                }
+            `
+        }
+
     },
     methods: {
-        async addMovie() { },
-    },
-};
-
+        async addMovie() {
+            const ADD_MOVIE_MUTATION = gql`
+                mutation AddMovie($title: String!, $year: Int!, $directorId: ID!) {
+                    addMovie(title: $title, year: $year, directorId: $directorId) {
+                        id
+                        title
+                        year
+                        director {
+                            id
+                            name
+                        }
+                    }
+                }
+            `;
+            try {
+                const response = await this.$apollo.mutate({
+                    mutation: ADD_MOVIE_MUTATION,
+                    variables: {
+                        title: this.newMovie.title,
+                        year: this.newMovie.year,
+                        directorId: this.newMovie.director
+                    }
+                });
+                console.log('Movie added:', response.data.addMovie);
+                this.newMovie.title = '';
+                this.newMovie.year = null;
+                this.newMovie.director = '';
+                await this.$apollo.queries.movies.refetch();
+            } catch (error) {
+                console.error('Error adding movie:', error);
+            }
+        },
+    }
+}
 </script>
 
 <style scoped>

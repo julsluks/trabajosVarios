@@ -3,18 +3,40 @@ import fs from 'fs';
 const movies = [];
 const directors = [];
 
-
-fetchData();
-
 const resolvers = {
     Query: {
-
+        movies: () => movies,
+        movie: (_, { id }) => movies.find(movie => movie.id == id),
+        directors: () => directors,
     },
     Movie: {
-
+        director: (parent) => {
+            const director = directors.find(director => director.id == parent.directorId);
+            if (!director) {
+                throw new Error('Director no trobat');
+            }
+            return director;
+        }
     },
     Mutation: {
+        addMovie: ( parent, { title, year, directorId }) => {
+            const director = directors.find(director => director.id == directorId);
+            if (!director) {
+                throw new Error('Director no trobat');
+            }
+            
+            const newMovie = { id: generateUniqueId(), title, year, directorId };
+            movies.push(newMovie);
+            storeData();
 
+            return newMovie;
+        },
+
+        addDirector: (_, { name }) => {
+            const newDirector = { id: String(directors.length + 1), name };
+            directors.push(newDirector);
+            return newDirector;
+        },
     },
 };
 
@@ -38,5 +60,10 @@ function storeData() {
     fs.writeFileSync('./movies.json', JSON.stringify(data, null, 2), 'utf-8');
 }
 
+function generateUniqueId() {
+    return String(movies.length + 1);
+}
+
+fetchData();
 
 export default resolvers;
