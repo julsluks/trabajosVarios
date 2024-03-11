@@ -29,6 +29,20 @@ class Joc {
     }
     revelarCasella(fila, columna) {
         // Lógica para revelar una casilla
+        if (fila < 0 || fila >= this.tauler.filas || columna < 0 || columna >= this.tauler.columnes) {
+            console.error("Coordenadas fuera del tablero");
+            return;
+        }
+        let casella = this.tauler.caselles[fila][columna];
+        if (casella.revelada) {
+            console.error("Casilla ya revelada");
+            return;
+        }
+        casella.revelada = true;
+        if (casella.esMina) {
+            console.log("Has perdido");
+            return String("Has perdido");
+        }
     }
     marcarCasella(fila, columna) {
         // Lógica para marcar una casilla
