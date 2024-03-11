@@ -1,0 +1,27 @@
+syntax = "proto3";
+package service;
+
+service YourService {
+    rpc functionName(RequestType) returns (ResponseType);
+    rpc getUser(GetUserRequest) returns (UserData);
+    rpc addUser(AddUserRequest) returns (bool);
+}
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+message AddUserRequest {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message bool {
+    bool result = 1;
+}
+
+message UserData {
+  string name = 1;
+  string email = 2;
+}
