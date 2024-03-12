@@ -35,6 +35,7 @@ document.getElementById("turn-back-button")?.addEventListener("click", function(
 document.getElementById("game-board")?.addEventListener("click", function(event) {
     let target = event.target as HTMLElement;
     if (target.classList.contains("casella")) {
+        
         let id = target.id.split("-");
         let fila = parseInt(id[0]);
         let columna = parseInt(id[1]);

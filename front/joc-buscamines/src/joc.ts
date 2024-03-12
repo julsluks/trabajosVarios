@@ -51,8 +51,31 @@ class Joc {
 
         if (casella.esMina) {
             console.log("Has perdido");
-            return String("Has perdido");
+            document.getElementById(`${fila}-${columna}`)?.classList.add('mina-revelada');
+            return;
         }
+
+        // Lógica para revelar las casillas adyacentes
+        const direcciones = [
+            [-1, -1], [-1, 0], [-1, 1],
+            [0, -1],           [0, 1],
+            [1, -1],  [1, 0],  [1, 1]
+        ];
+
+        for (let i = 0; i < direcciones.length; i++) {
+            let dir = direcciones[i];
+            let filaAdyacente = fila + dir[0];
+            let columnaAdyacente = columna + dir[1];
+
+            if (filaAdyacente >= 0 && filaAdyacente < this.tauler.filas && columnaAdyacente >= 0 && columnaAdyacente < this.tauler.columnes) {
+                let casellaAdyacente = this.tauler.caselles[filaAdyacente][columnaAdyacente];
+                if (!casellaAdyacente.esMina) {
+                    this.revelarCasella(filaAdyacente, columnaAdyacente);
+                }
+            }
+        }
+
+        
     }
 
     marcarCasella(fila: number, columna: number) {

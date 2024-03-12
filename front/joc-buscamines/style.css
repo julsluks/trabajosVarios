@@ -82,3 +82,8 @@ body {
     width: 0;
     height: 0;
 }
+
+.mina-revelada {
+    background-image: url('./assets/mina.png');
+    background-size: cover;
+}
